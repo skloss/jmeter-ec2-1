@@ -325,7 +325,7 @@ function runsetup() {
       hosts=(`aws ec2 describe-instances --instance-ids ${healthy_instanceids[@]} \
 						--region $REGION \
 						--output text \
-						--query 'Reservations[].Instances[].PublicIpAddress'`)
+						--query 'Reservations[].Instances[].PrivateIpAddress'`)
 
       if [ "${#healthy_instanceids[@]}" -eq 0 ] ; then
         countof_instanceids=0
