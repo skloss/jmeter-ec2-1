@@ -11,6 +11,8 @@ function install_jmeter_plugins() {
 }
 
 function install_java() {
+    echo "Adding openjdk PPA"
+    sudo add-apt-repository ppa:openjdk-r/ppa
     echo "Updating apt-get..."
     sudo apt-get -qqy update
     echo "Installing java..."
