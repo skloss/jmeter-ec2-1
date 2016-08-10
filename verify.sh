@@ -16,7 +16,7 @@ function install_java() {
     echo "Updating apt-get..."
     sudo apt-get -qqy update
     echo "Installing java..."
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install openjdk-7-jre
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install openjdk-8-jre
     echo "Java installed"
 }
 
