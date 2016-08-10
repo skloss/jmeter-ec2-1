@@ -648,9 +648,9 @@ function runsetup() {
           (scp -q -C -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                                         -i "$PEM_PATH/$PEM_FILE" -P $REMOTE_PORT \
                                         $LOCAL_HOME/jmeter.properties \
-                                        $USER@$host:$REMOTE_HOME/$JMETER_VERSION/bin/) &
+                                        $USER@$host:$REMOTE_HOME/$JMETER_VERSION/bin/
 
-          (ssh -nq -o StrictHostKeyChecking=no \
+          ssh -nq -o StrictHostKeyChecking=no \
                                         -i "$PEM_PATH/$PEM_FILE" $USER@$host -p $REMOTE_PORT \
                                         'echo hostname=$(hostname) > $REMOTE_HOME/$JMETER_VERSION/bin/jmeter.properties') &
       done
