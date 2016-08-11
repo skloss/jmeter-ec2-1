@@ -117,7 +117,7 @@ function check_prereqs() {
   fi
 }
 
-function set_remote_hosts() {
+function set_remote_hosts() {  
   if [ -z "$HOSTS_FILE" ] ; then
     HOSTS_FILE="remote_hosts.conf"
   fi
@@ -125,7 +125,7 @@ function set_remote_hosts() {
   if [ -s "$HOSTS_FILE" ] ; then
     while read -r line
     do
-      REMOTE_HOSTS="${line},"
+      REMOTE_HOSTS="${REMOTE_HOSTS}${line},"
     done < $HOSTS_FILE
 
     REMOTE_HOSTS=${REMOTE_HOSTS%?}
