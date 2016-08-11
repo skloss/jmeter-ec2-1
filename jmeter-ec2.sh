@@ -721,7 +721,7 @@ function runsetup() {
   fi
 
   # Start JMeter
-  if [ "$reuse_hosts" == "TRUE" && -s $REMOTE_HOSTS ] ; then
+  if [ "$reuse_hosts" == "TRUE" ] && [ -s $REMOTE_HOSTS ] ; then
     rm $REMOTE_HOSTS
   fi
 
