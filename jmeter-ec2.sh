@@ -126,7 +126,7 @@ function set_remote_hosts() {
     while read -r line
     do
       REMOTE_HOSTS="${line},"
-    done < $REMOTE_HOSTS
+    done < $HOSTS_FILE
 
     REMOTE_HOSTS=${REMOTE_HOSTS%?}
   fi  
