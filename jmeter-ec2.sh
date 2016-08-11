@@ -721,8 +721,8 @@ function runsetup() {
   fi
 
   # Start JMeter
-  if [ "$reuse_hosts" == "TRUE" ] && [ -s $REMOTE_HOSTS ] ; then
-    rm $REMOTE_HOSTS
+  if [ "$reuse_hosts" == "TRUE" ] && [ -s $HOSTS_FILE ] ; then
+    rm $HOSTS_FILE
   fi
 
   echo "starting jmeter on:"
@@ -730,7 +730,7 @@ function runsetup() {
     echo $host
 
     if [ "$reuse_hosts" == "TRUE" ] ; then
-      echo $host >> $REMOTE_HOSTS
+      echo $host >> $HOSTS_FILE
     fi
   done
   for counter in ${!hosts[@]} ; do
