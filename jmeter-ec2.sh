@@ -638,10 +638,6 @@ function runsetup() {
   # scp jmx dir
   echo -n "jmx files.."
   for y in "${!hosts[@]}" ; do
-      if [ "$reuse_hosts" == "TRUE" ] ; then
-        echo ${hosts[$y]} > $HOSTS_FILE  
-      fi
-      
       (scp -q -C -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r \
                                     -i "$PEM_PATH/$PEM_FILE" -P $REMOTE_PORT \
                                     $project_home/working_$y \
@@ -725,9 +721,17 @@ function runsetup() {
   fi
 
   # Start JMeter
+  if [ "$reuse_hosts" == "TRUE" && -s $REMOTE_HOSTS ] ; then
+    rm $REMOTE_HOSTS
+  fi
+
   echo "starting jmeter on:"
   for host in ${hosts[@]} ; do
     echo $host
+
+    if [ "$reuse_hosts" == "TRUE" ] ; then
+      echo $host >> $REMOTE_HOSTS
+    fi
   done
   for counter in ${!hosts[@]} ; do
       ( ssh -nq -o StrictHostKeyChecking=no \
