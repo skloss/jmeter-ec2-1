@@ -663,11 +663,14 @@ function runsetup() {
     # scp jmeter.properties
     if [ -r $LOCAL_HOME/jmeter.properties ] ; then # don't try to upload this optional file if it is not present
       echo -n "jmeter.properties.."
+      host_offset=0;
       for host in ${hosts[@]} ; do
           (scp -q -C -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                                         -i "$PEM_PATH/$PEM_FILE" -P $REMOTE_PORT \
                                         $LOCAL_HOME/jmeter.properties \
                                         $USER@$host:$REMOTE_HOME/$JMETER_VERSION/bin/) &
+          (ssh -q echo "host_offset=$host_offset" >> $LOCAL_HOME/jmeter.properties) &
+          host_offset=$(($host_offset + 1))
       done
       wait
       echo -n "done...."
