@@ -670,9 +670,9 @@ function runsetup() {
                                         $LOCAL_HOME/jmeter.properties \
                                         $USER@$host:$REMOTE_HOME/$JMETER_VERSION/bin/) &
 
-          (ssh -nq -o StrictHostKeyChecking=no \
+          (ssh -nq -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                                         -p $REMOTE_PORT \
-                                        -i "$PEM_PATH/$PEM_FILE" $USER@${hosts[$counter]} \
+                                        -i "$PEM_PATH/$PEM_FILE" $USER@$host \
                                         echo "host_offset=$host_offset" >> $LOCAL_HOME/jmeter.properties) &
 
           host_offset=$(($host_offset + 1))
