@@ -741,6 +741,11 @@ function runsetup() {
       ( ssh -nq -o StrictHostKeyChecking=no \
       -p $REMOTE_PORT \
       -i "$PEM_PATH/$PEM_FILE" $USER@${hosts[$counter]} \
+      "curl -vvv -i -XPOST 'http://10.3.11.239:8086/write?db=jmeter' --data-binary 'jmeter_run,host='"'$(hostname)'"' value=${BUILD_NUMBER}'") &
+    
+      ( ssh -nq -o StrictHostKeyChecking=no \
+      -p $REMOTE_PORT \
+      -i "$PEM_PATH/$PEM_FILE" $USER@${hosts[$counter]} \
       $REMOTE_HOME/$JMETER_VERSION/bin/jmeter.sh -n \
       -t $REMOTE_HOME/execute.jmx \
       -l $REMOTE_HOME/$project-$DATETIME-$counter.jtl \
