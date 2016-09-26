@@ -738,10 +738,10 @@ function runsetup() {
     fi
   done
   for counter in ${!hosts[@]} ; do
-      ( ssh -nq -o StrictHostKeyChecking=no \
-      -p $REMOTE_PORT \
-      -i "$PEM_PATH/$PEM_FILE" $USER@${hosts[$counter]} \
-      "curl -vvv -i -XPOST 'http://10.3.11.239:8086/write?db=jmeter' --data-binary 'jmeter_run,host='"'$(hostname)'"' value=${BUILD_NUMBER}'") &
+      #( ssh -nq -o StrictHostKeyChecking=no \
+      #-p $REMOTE_PORT \
+      #-i "$PEM_PATH/$PEM_FILE" $USER@${hosts[$counter]} \
+      #"curl -vvv -i -XPOST 'http://10.3.11.239:8086/write?db=jmeter' --data-binary 'jmeter_run,host='"'$(hostname)'"' value=${BUILD_NUMBER}'") &
     
       ( ssh -nq -o StrictHostKeyChecking=no \
       -p $REMOTE_PORT \
