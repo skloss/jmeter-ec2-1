@@ -18,6 +18,14 @@ function install_java() {
     echo "Java installed"
 }
 
+function install_ffmpeg() {
+    echo "Updating apt-get..."
+    sudo apt-get -qqy update
+    echo "Installing ffmpeg..."
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install ffmpeg
+    echo "ffmpeg installed"
+}
+
 function install_jmeter() {
     # ------------------------------------------------
     #      Decide where to download jmeter from
@@ -65,6 +73,8 @@ if [ ! -d "$JMETER_VERSION" ] ; then
 else
     echo "JMeter is already installed"
 fi
+
+install_ffmpeg
 
 # Done
 echo "software installed"
