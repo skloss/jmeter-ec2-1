@@ -32,6 +32,7 @@ if [ "$1" == "-h" ] ; then
   echo "[count]           - optional, default=1"
   echo "[percent]         - optional, default=100"
   echo "[setup]           - optional, default='TRUE'"
+  echo "[streaming]       - optional, default='TRUE'"
   echo "[terminate]       - optional, default='TRUE'"
   echo "[price]           - optional"
   echo
@@ -43,6 +44,9 @@ if [ -z "$percent" ] ; then percent=100 ; fi
 
 # default to TRUE if setup is not specified
 if [ -z "$setup" ] ; then setup="TRUE" ; fi
+
+# default to TRUE if streaming is not specified
+if [ -z "$terminate" ] ; then streaming="TRUE" ; fi
 
 # default to TRUE if terminate is not specified
 if [ -z "$terminate" ] ; then terminate="TRUE" ; fi
@@ -451,6 +455,36 @@ function runsetup() {
                     $USER@$host:$REMOTE_HOME \
                     && echo "done" > $project_home/$DATETIME-$host-scpverify.out) &
     done
+    
+# scp rmtps_stream.sh
+  if [ "$streaming" = "TRUE" ] ; then
+  	echo "copying rmtps_stream.sh to $instance_count server(s)..."
+
+    for host in ${hosts[@]} ; do
+      (scp -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                    -i "$PEM_PATH/$PEM_FILE" \
+                    -P $REMOTE_PORT \
+                    $LOCAL_HOME/rmtps_stream.sh \
+                    $LOCAL_HOME/jmeter-ec2.properties \
+                    $USER@$host:$REMOTE_HOME \
+                    && echo "done" > $project_home/$DATETIME-$host-rmtps_stream.out) &
+    done
+    
+# scp test2.flv
+  if [ "$streaming" = "TRUE" ] ; then
+  	echo "copying test2.flv to $instance_count server(s)..."
+
+    for host in ${hosts[@]} ; do
+      (scp -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                    -i "$PEM_PATH/$PEM_FILE" \
+                    -P $REMOTE_PORT \
+                    $LOCAL_HOME/test2.flv \
+                    $LOCAL_HOME/jmeter-ec2.properties \
+                    $USER@$host:$REMOTE_HOME \
+                    && echo "done" > $project_home/$DATETIME-$host-test2.out) &
+    done
+
+    
 
     # check to see if the scp call is complete (could just use the wait command here...)
     res=0
