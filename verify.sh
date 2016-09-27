@@ -11,10 +11,12 @@ function install_jmeter_plugins() {
 }
 
 function install_java() {
+    echo "Adding openjdk PPA"
+    sudo add-apt-repository ppa:openjdk-r/ppa
     echo "Updating apt-get..."
     sudo apt-get -qqy update
     echo "Installing java..."
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install openjdk-7-jre
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install openjdk-8-jre
     echo "Java installed"
 }
 
@@ -35,24 +37,27 @@ function install_jmeter() {
     #   2. Mirror, if the desired version is current
     #   3. Archive, as a backup
     # ------------------------------------------------
-    if [ $(curl -sI https://s3.amazonaws.com/jmeter-ec2/$JMETER_VERSION.tgz | grep -c "403 Forbidden") -eq "0" ] ; then
-        # We have a copy on S3 so use that
-        echo "Downloading jmeter from S3..."
-        wget -q -O ~/$JMETER_VERSION.tgz https://s3.amazonaws.com/jmeter-ec2/$JMETER_VERSION.tgz
-    elif [ $(echo $(curl -s 'http://www.apache.org/dist/jmeter/binaries/') | grep -c "$JMETER_VERSION") -gt "0" ] ; then
-        # Nothing found on S3 but this is the current version of jmeter so use the preferred mirror to download
-        echo "downloading jmeter from a Mirror..."
-        wget -q -O ~/$JMETER_VERSION.tgz "http://www.apache.org/dyn/closer.cgi?filename=jmeter/binaries/$JMETER_VERSION.tgz&action=download"
-    else
-        # Fall back to the archive server
-        echo "Downloading jmeter from Apache Archive..."
-        wget -q -O ~/$JMETER_VERSION.tgz http://archive.apache.org/dist/jmeter/binaries/$JMETER_VERSION.tgz
-    fi
+    # if [ $(curl -sI https://s3.amazonaws.com/jmeter-ec2/$JMETER_VERSION.tgz | grep -c "403 Forbidden") -eq "0" ] ; then
+    #     # We have a copy on S3 so use that
+    #     echo "Downloading jmeter from S3..."
+    #     wget -q -O ~/$JMETER_VERSION.tgz https://s3.amazonaws.com/jmeter-ec2/$JMETER_VERSION.tgz
+    # elif [ $(echo $(curl -s 'http://www.apache.org/dist/jmeter/binaries/') | grep -c "$JMETER_VERSION") -gt "0" ] ; then
+    #     # Nothing found on S3 but this is the current version of jmeter so use the preferred mirror to download
+    #     echo "downloading jmeter from a Mirror..."
+    #     wget -q -O ~/$JMETER_VERSION.tgz "http://www.apache.org/dyn/closer.cgi?filename=jmeter/binaries/$JMETER_VERSION.tgz&action=download"
+    # else
+    #     # Fall back to the archive server
+    #     echo "Downloading jmeter from Apache Archive..."
+    #     wget -q -O ~/$JMETER_VERSION.tgz http://archive.apache.org/dist/jmeter/binaries/$JMETER_VERSION.tgz
+    # fi
+
+    wget -q -O ~/$JMETER_VERSION.tgz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/$JMETER_VERSION.tgz
+
     # Untar downloaded file
     echo "Unpacking jmeter..."
     tar -xf ~/$JMETER_VERSION.tgz
     # install jmeter-plugins [http://code.google.com/p/jmeter-plugins/]
-    install_jmeter_plugins
+    #install_jmeter_plugins
     echo "Jmeter installed"
 }
 
