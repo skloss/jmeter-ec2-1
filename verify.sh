@@ -12,7 +12,7 @@ function install_jmeter_plugins() {
 
 function install_java() {
     echo "Adding openjdk PPA"
-    sudo add-apt-repository ppa:openjdk-r/ppa
+    sudo add-apt-repository ppa:openjdk-r/ppa -y
     echo "Updating apt-get..."
     sudo apt-get -qqy update
     echo "Installing java..."
@@ -21,6 +21,8 @@ function install_java() {
 }
 
 function install_ffmpeg() {
+    echo "Adding FFMPEG PPA"
+    sudo add-apt-repository ppa:mc3man/trusty-media -y
     echo "Updating apt-get..."
     sudo apt-get -qqy update
     echo "Installing ffmpeg..."
