@@ -46,7 +46,7 @@ if [ -z "$percent" ] ; then percent=100 ; fi
 if [ -z "$setup" ] ; then setup="TRUE" ; fi
 
 # default to TRUE if streaming is not specified
-if [ -z "$terminate" ] ; then streaming="TRUE" ; fi
+if [ -z "$streaming" ] ; then streaming="TRUE" ; fi
 
 # default to TRUE if terminate is not specified
 if [ -z "$terminate" ] ; then terminate="TRUE" ; fi
@@ -455,6 +455,7 @@ function runsetup() {
                     $USER@$host:$REMOTE_HOME \
                     && echo "done" > $project_home/$DATETIME-$host-scpverify.out) &
     done
+  fi  
     
 # scp rmtps_stream.sh
   if [ "$streaming" = "TRUE" ] ; then
@@ -469,7 +470,7 @@ function runsetup() {
                     $USER@$host:$REMOTE_HOME \
                     && echo "done" > $project_home/$DATETIME-$host-rmtps_stream.out) &
     done
-    
+  fi  
 # scp test2.flv
   if [ "$streaming" = "TRUE" ] ; then
   	echo "copying test2.flv to $instance_count server(s)..."
