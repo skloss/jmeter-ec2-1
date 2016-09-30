@@ -459,18 +459,32 @@ function runsetup() {
     
 # scp rmtps_stream.sh
   if [ "$streaming" = "TRUE" ] ; then
-  	echo "copying rmtps_stream.sh to $instance_count server(s)..."
+  	echo "copying rtmps_stream.sh to $instance_count server(s)..."
 
     for host in ${hosts[@]} ; do
       (scp -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
                     -i "$PEM_PATH/$PEM_FILE" \
                     -P $REMOTE_PORT \
-                    $LOCAL_HOME/rmtps_stream.sh \
+                    $LOCAL_HOME/rtmps_stream.sh \
                     $LOCAL_HOME/jmeter-ec2.properties \
                     $USER@$host:$REMOTE_HOME \
-                    && echo "done" > $project_home/$DATETIME-$host-rmtps_stream.out) &
+                    && echo "done" > $project_home/$DATETIME-$host-rtmps_stream.out) &
     done
-  fi  
+  fi 
+# scp rmtps_stream_server.sh
+  if [ "$streaming" = "TRUE" ] ; then
+  	echo "copying rtmps_stream_server.sh to $instance_count server(s)..."
+
+    for host in ${hosts[@]} ; do
+      (scp -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+                    -i "$PEM_PATH/$PEM_FILE" \
+                    -P $REMOTE_PORT \
+                    $LOCAL_HOME/rtmps_stream_server.sh \
+                    $LOCAL_HOME/jmeter-ec2.properties \
+                    $USER@$host:$REMOTE_HOME \
+                    && echo "done" > $project_home/$DATETIME-$host-rtmps_stream_server.out) &
+    done
+  fi 
 # scp test2.flv
   if [ "$streaming" = "TRUE" ] ; then
   	echo "copying test2.flv to $instance_count server(s)..."
