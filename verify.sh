@@ -27,8 +27,14 @@ function install_ffmpeg() {
     sudo apt-get -qqy update
     echo "Installing ffmpeg..."
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install ffmpeg
+    wget -q -O ~/rtmps_server.tar.gz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_server.tar.gz
+    tar -xf ~/rtmps_server.tar.gz
+    cd ~/rtmps_server
+    mv test2.flv ~/test2.flv
+    mv rtmps_stream_server.sh ~/rtmps_stream_server.sh
     echo "ffmpeg installed"
 }
+
 
 function install_jmeter() {
     # ------------------------------------------------
