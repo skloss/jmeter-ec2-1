@@ -30,6 +30,22 @@ function install_ffmpeg() {
     echo "ffmpeg installed"
 }
 
+function install_stunnel() {
+    echo "Adding Stunnel"
+    echo "Updating apt-get..."
+    sudo apt-get -qqy update
+    echo "Installing stunnel..."
+    sudo apt-get install stunnel4 -y
+    wget -q -O ~/rtmps_server.tar.gz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_server.tar.gz
+    tar -xf ~/rtmps_server.tar.gz
+    cd ~/rtmps_server
+    mv stunnel.conf /etc/stunnnel/stunnel.conf
+    mv test2.flv ~/test2.flv
+    mv rtmps_stream_server.sh ~/rtmps_stream_server.sh
+    stunnel /etc/stunnnel/stunnel.conf
+    echo "stunnel installed"
+}
+
 function install_jmeter() {
     # ------------------------------------------------
     #      Decide where to download jmeter from
@@ -82,6 +98,8 @@ else
 fi
 
 install_ffmpeg
+
+install_stunnel
 
 # Done
 echo "software installed"
