@@ -39,11 +39,10 @@ function install_stunnel() {
     wget -q -O ~/rtmps_server.tar.gz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_server.tar.gz
     tar -xf ~/rtmps_server.tar.gz
     cd ~/rtmps_server
-    mv stunnel.conf /etc/stunnnel/stunnel.conf
     mv test2.flv ~/test2.flv
     mv rtmps_stream_server.sh ~/rtmps_stream_server.sh
-    stunnel /etc/stunnnel/stunnel.conf
-    echo "stunnel installed"
+    sudo stunnel -c -f -d 1937 -r 127.0.0.1:1936
+    echo "stunnel installed and listen"
 }
 
 function install_jmeter() {
