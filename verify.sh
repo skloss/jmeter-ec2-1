@@ -27,23 +27,14 @@ function install_ffmpeg() {
     sudo apt-get -qqy update
     echo "Installing ffmpeg..."
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install ffmpeg
-    echo "ffmpeg installed"
-}
-
-function install_stunnel() {
-    echo "Adding Stunnel"
-    echo "Updating apt-get..."
-    sudo apt-get -qqy update
-    echo "Installing stunnel..."
-    sudo apt-get install stunnel4 -y
     wget -q -O ~/rtmps_server.tar.gz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_server.tar.gz
     tar -xf ~/rtmps_server.tar.gz
     cd ~/rtmps_server
     mv test2.flv ~/test2.flv
     mv rtmps_stream_server.sh ~/rtmps_stream_server.sh
-    sudo stunnel -c -f -d 1937 -r 127.0.0.1:1936
-    echo "stunnel installed and listen"
+    echo "ffmpeg installed"
 }
+
 
 function install_jmeter() {
     # ------------------------------------------------
@@ -97,8 +88,6 @@ else
 fi
 
 install_ffmpeg
-
-install_stunnel
 
 # Done
 echo "software installed"
