@@ -21,18 +21,18 @@ function install_java() {
 }
 
 function install_ffmpeg() {
-    echo "Adding FFMPEG PPA"
-    sudo add-apt-repository ppa:mc3man/trusty-media -y
-    echo "Updating apt-get..."
-    sudo apt-get -qqy update
-    echo "Installing ffmpeg..."
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qqy install ffmpeg
-    wget -q -O ~/rtmps_server.tar.gz https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_server.tar.gz
-    tar -xf ~/rtmps_server.tar.gz
-    cd ~/rtmps_server
-    mv test2.flv ~/test2.flv
-    mv rtmps_stream_server.sh ~/rtmps_stream_server.sh
-    echo "ffmpeg installed"
+    echo "Download and prepare ffmpeg..."
+    wget -q -O ~/ffmpeg https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/ffmpeg
+    sudo chmod +x ~/ffmpeg
+    
+    echo "Download video file..."
+    wget -q -O ~/test1.flv https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/test1.flv
+    
+    echo "Download rtmps_script"
+    wget -q -O ~/rtmps_redirect_server.sh https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_redirect_server.sh
+    sudo chmod +x ~/rtmps_redirect_server.sh
+    
+    echo "ffmpeg,video file,rmtps_script prepared"
 }
 
 
