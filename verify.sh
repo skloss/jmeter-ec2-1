@@ -25,9 +25,11 @@ function install_ffmpeg() {
     wget -q -O ~/ffmpeg https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/ffmpeg
     sudo chmod +x ~/ffmpeg
     
-    echo "Download video file..."
-    wget -q -O ~/test1.flv https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/test1.flv
-    
+    echo "Download video files..."
+    wget -q -O ~/240p.flv https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/240p.flv
+    wget -q -O ~/360p.flv https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/360p.flv
+    wget -q -O ~/720p.flv https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/720p.flv
+     
     echo "Download rtmps_script"
     wget -q -O ~/rtmps_redirect_server.sh https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/rtmps_redirect_server.sh
     sudo chmod +x ~/rtmps_redirect_server.sh
