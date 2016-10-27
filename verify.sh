@@ -38,6 +38,14 @@ function install_ffmpeg() {
 }
 
 
+function install_ping(){
+    echo "Download replace_ping.sh"
+    wget -q -O ~/replace_ping.sh https://s3-eu-west-1.amazonaws.com/archive.sf-dev1.com/test/api/replace_ping.sh
+    sudo chmod +x ~/replace_ping.sh
+    echo "replace_ping.sh installed"
+}
+
+
 function install_jmeter() {
     # ------------------------------------------------
     #      Decide where to download jmeter from
@@ -90,6 +98,8 @@ else
 fi
 
 install_ffmpeg
+
+install_ping
 
 # Done
 echo "software installed"
